@@ -8,6 +8,7 @@ export default function Home() {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [message, setMessage] = useState('please make sure you have an account');
+    const [users, setUsers] = useState(null);
     console.log('in home');
 
     const navigate = useNavigate();
@@ -45,6 +46,13 @@ export default function Home() {
     //     // Handle errors
     //     setError(error);
     // });
+    fetch("http://127.0.0.1:8000/api/home")
+    .then(response => {
+            return response.json();
+    }).then(data => {
+        console.log(data);
+        setUsers(data);
+    })
     
     return (
         <div className="wrapper">
