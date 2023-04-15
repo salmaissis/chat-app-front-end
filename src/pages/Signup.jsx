@@ -19,6 +19,9 @@ export default function Signup() {
     const handleClick = () => {
         navigate('/login');
     }
+    const handle = () => {
+        navigate('/home');
+    }
 
     const submit = async e => {
         e.preventDefault();
@@ -26,7 +29,7 @@ export default function Signup() {
         const signup = new FormData();
         Object.keys(signupStates).map(field => signup.append(field, signupStates[field]));
         console.log([...signup]);
-        await fetch('http://localhost:8000/api/signup', {
+        fetch('http://localhost:8000/api/signup', {
             method: 'POST',
             body: signup
         });
@@ -64,7 +67,7 @@ export default function Signup() {
             <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg,image/jpg" required onChange={(e)=>{setSignupStates({...signupStates, img: e.target.files[0]})}}/>
             </div>
             <div className="field button">
-            <input type="submit" name="submit" value="Continue to Chat" />
+            <input type="submit" name="submit" value="Continue to Chat" onClick={handle}/>
             </div>
         </form>
         <div className="link">Already signed up? <a onClick={handleClick}>Login now</a></div>

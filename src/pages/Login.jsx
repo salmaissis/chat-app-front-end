@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    const [data, setData] = useState([]);
+    const [error, setError] = useState(false);
     const [message, setMessage] = useState('email or password invalid');
     
     const navigate = useNavigate();
@@ -31,13 +31,16 @@ export default function Login() {
         .then(data => {
             // Do something with the data
             setData(data);
-            // setMessage('you are logged in');
+            console.log(data);
+            setMessage('you are logged in');
             
-            data === null ? alert(message) : navigate('/home');
+            data.length == 0 ? alert(message) : console.log('in');
         })
         .catch(error => {
             // Handle errors
-            setError(error);
+            console.log("error ",error);
+
+            setError(true);
         });
     }
     const submitByEnter = (e) => {
@@ -51,6 +54,7 @@ export default function Login() {
 
     return (
         <div className="wrapper">
+            <h1>{error ? "not found" : ""}</h1>
             <section className="form login">
             <header>Realtime Chat App</header>
             <form action="#" method="POST" encType="multipart/form-data" autoComplete="off" onSubmit={submit}>
@@ -65,7 +69,7 @@ export default function Login() {
                 <i className="fas fa-eye"></i>
                 </div>
                 <div className="field button">
-                <input type="submit" name="submit" value="Continue to Chat" />
+                <input type="button" onClick={()=>{error ? alert('info invlid') : navigate('/home')}} name="submit" value="Continue to Chat" />
                 </div>
             </form>
             <div className="link">Not yet signed up? <a onClick={handleClick}>Signup now</a></div>
